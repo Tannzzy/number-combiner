@@ -1,80 +1,51 @@
-# import randint from random module
-from random import randint
+'''
+This code works by having each number in the list have zero padding at the end of the digit
+based on its position on the list.
 
+For example, [1, 2, 3, 4] hs 4 digits, so we want to make the first number have 4 digits using
+0 padding, the second have 3 digits, the third have 2 digit and last have 1.
 
-def answer():
+Thus, we get [1000, 200, 30, 4] then we add them together to get 1234
+'''
+
+def number_combiner(lst: list) -> int:
     '''
-    generate random number
-
-    return:
-    a random int between 1 and 100
-    '''
-
-    # select a random number between 1 and 100
-    answer = randint(1, 100)
-    return answer
-
-
-def guessing(guess: int, answer: int) -> str:
-    '''
-    compares guess and answer value, see if guess is higher,
-    lower or equal to answer
+    takes in a list of integers and combines it
 
     arg:
-    guess(int): the user's guessed number
-    answer(int): the correct number
+    lst(list): a list of integers
 
     return:
-    a string representing if guess is higher, lower or equal
-    to answer
+    the combined integer of all digits from lst
     '''
 
-    # if guess is less than the answer
-    if guess > answer:
-        return 'lower'
-    # if guess is more than the answer
-    elif guess < answer:
-        return 'higher'
-    # if guess equals answer
-    else:
-        return 'equal'
+    # initiate counter variable
+    n = 0
+    # initiate an empty list
+    new_list = []
+
+    # for each number in the list
+    for num in lst:
+        # calculates the power of 10 based on the position of num in the list
+        power = len(lst) - 1 - n
+        # num times 10 to the power of variable 'power' to get num with appropriate 0 padding
+        # resulting number is appended to a new list
+        new_list.append(num * 10 ** power)
+        # increase counter by one
+        n += 1
+
+    # return the result as a sum of all the integers in the list we appended all the integers to
+    return sum(new_list)
 
 
-def printing(results: str) -> None:
-    '''
-    prints a response based on the value of 'results'
+# input a list of numbers
+num_list = [8, 3, 5, 1]
 
-    arg:
-    a string representing if guess is higher, lower or equal
-    to answer
-    '''
-
-    # if result is 'lower'
-    if results == 'lower':
-        print('lower')
-
-    # if result is 'higher'
-    elif results == 'higher':
-        print('higher')
-
-    # if result is neither 'higher' nor 'lower'
-    else:
-        print('you won')
+# prints result of the function
+print(number_combiner(num_list))
 
 
-# generate a random number that the user is trying to guess
-answer = answer()
 
-# initialise guess string
-guess = ''
 
-# while user's guess is nto equal to the answer
-while guess != answer:
-    # prompt user to guess a number
-    guess = int(input('guess the random number between 1 and 100: '))
 
-    # calculate result
-    results = guessing(guess, answer)
 
-    # print the corresponding text message comparing guess and answer
-    printing(results)
